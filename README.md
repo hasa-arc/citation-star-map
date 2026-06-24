@@ -1,218 +1,257 @@
 # Citation Star Map
 
-An interactive 3D scientific citation explorer that transforms a curated corpus of health-science and brain-connectivity research into a navigable star field.
+**Citation Star Map** is a Python-powered interactive scientific literature explorer that transforms research papers into a navigable 3D universe.
 
-Instead of displaying papers as a traditional network graph, Citation Star Map visualizes research papers as glowing stars in deep space, allowing users to explore citation relationships, co-citation structures, and scientific communities through an immersive Three.js-powered experience.
+Instead of browsing papers through lists and search results, users can explore scientific knowledge as a constellation of interconnected stars, where each star represents a real research paper and every connection represents a verifiable scholarly relationship.
+
+The project focuses on health science, neuroscience, brain connectivity, and network medicine literature while maintaining strict data integrity standards.
 
 ---
 
-## Features
+## Vision
 
-### True 3D Citation Universe
+Scientific knowledge is a network.
 
-* Built with Three.js and React Force Graph 3D
-* Orbit, zoom, and pan controls
-* Auto-rotating camera
-* Fullscreen hero experience
-* No 2D fallback
+Citation Star Map visualizes that network as an explorable galaxy, allowing researchers, students, and curious minds to discover how ideas connect across disciplines.
 
-### Real Scientific Papers Only
+Every node is a real paper.
 
-* Retrieves metadata from open scholarly sources
-* No fabricated papers
-* No fabricated citations
-* No synthetic references
+Every edge is traceable.
 
-### Citation-Based Network Construction
+No fabricated citations.
 
-Graph edges are derived exclusively from:
+No synthetic metadata.
+
+---
+
+## Key Features
+
+### Real Scientific Literature
+
+* Retrieves papers from scholarly databases
+* Uses only real metadata
+* Uses only verifiable citation relationships
+* Supports DOI and Open Paper links
+
+### Citation Network Construction
+
+The graph is built from:
 
 * Direct citations
 * Co-citations
 
-If citation density is insufficient, the system falls back to:
+If citation coverage is incomplete:
 
-* Keyword co-occurrence relationships
-
-Fallback edges are explicitly labeled in the exported dataset.
+* Keyword co-occurrence relationships are used as a fallback
+* Fallback relationships are explicitly labeled
 
 ### Community Detection
 
 * Louvain clustering
-* Jewel-colored communities
-* Interactive legend filtering
+* Automatic research-community discovery
+* Color-coded scientific domains
 
-### Interactive Exploration
+### Interactive 3D Exploration
 
-* Hover communities to isolate clusters
-* Click nodes to highlight neighbors
-* Detailed paper information panel
-* Full abstract display
-* Open Paper links
+* Orbit navigation
+* Zoom controls
+* Pan controls
+* Auto-rotating camera
+* Full-screen immersive visualization
 
-### Visual Effects
+### Research Details Panel
 
-* THREE.Sprite radial glow stars
-* Unreal Bloom Pass
-* Stardust particle field
-* Faint gold citation edges
-* Deep-space aesthetic
+Selecting a paper reveals:
+
+* Title
+* Authors
+* Abstract
+* DOI
+* Open access link (when available)
+* Data completeness annotation
 
 ### Downloadable Corpus
 
-Users can download the complete research corpus as a ZIP archive containing:
+Users can download:
 
-* Graph data
 * Paper metadata
-* Reference data
+* Citation graph
+* References
+* Research corpus archive
 
 ---
 
-## Technology Stack
+# Technology Stack
 
-### Backend
+## Backend
 
 * Python
 * FastAPI
+* Pydantic
+* NetworkX
+* Pandas
+* NumPy
+
+## Scientific Data
+
+* OpenAlex API
+* PyAlex
+* Crossref API
+* Semantic Scholar API (optional)
+
+## Network Analysis
+
 * NetworkX
 * Python-Louvain
-* Pandas
-* OpenAlex API
+* Scikit-learn
 
-### Frontend
+## Frontend
 
-* React
-* React Force Graph 3D
-* Three.js
-* Zustand
+Python-first architecture using:
+
+* Reflex
+
+The application minimizes frontend complexity by keeping state management, routing, data processing, and business logic in Python.
+
+## Visualization
+
+* Three.js rendering layer
+* WebGL acceleration
+* Interactive 3D graph visualization
 
 ---
 
-## Project Structure
+# Project Architecture
 
 ```text
 citation-star-map/
 │
-├── backend/
-│   ├── app/
-│   ├── builder/
-│   │   ├── fetch_papers.py
-│   │   ├── build_graph.py
-│   │   ├── community.py
-│   │   └── export_zip.py
-│   └── requirements.txt
+├── app/
+│   ├── pages/
+│   ├── components/
+│   ├── state/
+│   └── main.py
 │
-├── frontend/
-│   ├── public/
-│   ├── src/
-│   └── package.json
+├── builder/
+│   ├── fetch_papers.py
+│   ├── build_graph.py
+│   ├── communities.py
+│   ├── layout.py
+│   └── export.py
 │
 ├── data/
 │   ├── graph.json
 │   └── corpus.zip
 │
+├── requirements.txt
 ├── README.md
 └── LICENSE
 ```
 
 ---
 
-## Data Integrity Policy
+# Data Integrity Policy
 
-### Allowed
+## Allowed Relationships
 
-✔ Direct citation edges
+✔ Direct citations
 
-✔ Co-citation edges
+✔ Co-citations
 
-✔ Keyword fallback edges (explicitly labeled)
+✔ Keyword-based fallback edges
 
-### Forbidden
+## Forbidden
 
 ✘ Invented citations
 
-✘ Invented references
+✘ Fabricated references
 
-✘ Fabricated papers
+✘ Synthetic papers
 
-✘ Synthetic metadata
+✘ Artificial metadata
 
-Every relationship in the graph must be traceable to retrieved source records.
-
----
-
-## Paper Metadata Schema
-
-```json
-{
-  "id": "paper_id",
-  "title": "Paper Title",
-  "authors": ["Author A", "Author B"],
-  "abstract": "Abstract text",
-  "doi": "10.xxxx/xxxxx",
-  "openPaperUrl": "https://...",
-  "community": 2,
-  "degree": 14,
-  "completeness": "full_citation_graph"
-}
-```
-
-### Completeness Values
-
-* full_citation_graph
-* partial_references
-* keyword_fallback
+Every edge must be reproducible from retrieved source data.
 
 ---
 
-## Author Compatibility
+# Completeness Annotations
 
-The application supports both formats:
+Each paper is tagged with one of the following:
 
-```javascript
-authors: "John Doe"
+| Status              | Meaning                                                    |
+| ------------------- | ---------------------------------------------------------- |
+| full_citation_graph | Complete citation information available                    |
+| partial_references  | Some references available                                  |
+| keyword_fallback    | Citation coverage insufficient; keyword relationships used |
+
+---
+
+# Author Compatibility
+
+The system supports both formats:
+
+```python
+authors = "John Doe"
 ```
 
 and
 
-```javascript
-authors: ["John Doe", "Jane Smith"]
+```python
+authors = ["John Doe", "Jane Smith"]
 ```
 
-using a dedicated utility:
+through a shared utility:
 
-```javascript
-getFirstAuthor(authors)
+```python
+get_first_author(authors)
 ```
 
 ---
 
-## Reliability
+# Reliability
 
-### Error Boundary
+## Error Boundary
 
-The entire application is wrapped in:
+Application-wide exception handling prevents runtime crashes and blank screens.
 
-```jsx
-<ErrorBoundary>
-  <App />
-</ErrorBoundary>
-```
+## Safe Hook Execution
 
-### Hook Safety
+All state initialization and hooks execute before conditional rendering.
 
-All React hooks execute before any early return conditions to prevent blank screens and runtime failures.
+## Reproducible Builds
+
+The graph generation pipeline is deterministic and can be rebuilt from source data.
 
 ---
 
-## License
+# Research Applications
+
+* Citation analysis
+* Literature review
+* Knowledge discovery
+* Network medicine
+* Neuroscience mapping
+* Scientific community detection
+* Academic exploration
+
+---
+
+# Future Roadmap
+
+* Multi-domain citation maps
+* Temporal citation evolution
+* Semantic clustering
+* Research recommendation engine
+* OpenAlex synchronization
+* User-generated collections
+* Export to Gephi and GraphML
+
+---
+
+# License
 
 MIT License
 
 ---
 
-## Vision
-
-Scientific knowledge is often explored through lists, tables, and search engines.
-
-Citation Star Map aims to make scientific literature feel like a discoverable universe—where papers become stars, citation paths become constellations, and research communities emerge as galaxies waiting to be explored.
+> Mapping scientific knowledge as a navigable universe—one citation at a time.
